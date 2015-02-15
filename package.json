@@ -1,0 +1,17 @@
+{
+  "name": "json.decycled",
+  "description": "Decycled versión for JSON.stringify, resolve circulars and more. Reverse by JSON.revive().",
+  "version": "0.1.0",
+  "author": {
+    "name": "Bifuer",
+    "email": "bifuer@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/bifuer/json.decycled"
+  },
+  "main": "./decycled.js",
+  "scripts": {},
+  "dependencies": {},
+  "readmeFilename": "readme.md"
+}
