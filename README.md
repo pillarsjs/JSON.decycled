@@ -2,6 +2,11 @@
 Añade a JSON.prototype de JS el método decycle. 
 Este método actúa en estructuras JSON con redundancia cíclica, eliminando esta redundancia e igualando la propiedad con redundancia cíclica a [Circular: *nodo de referencia*]. [npm](https://www.npmjs.com/package/json.decycled).
 
+Además si la estrucutra JSON tiene datos tipo: 
++ **Error**: 'Error': new Error('Opss'),
++ **Expresiones regulares**: 'Regexp': /x+/,
++ **Fechas**: 'Date': new Date(),
+Los mantiene, y posteriormente mediante JSON.revive tendremos la estrucutra JSON, únicamente con las referencias cíclicas y los demás datos sin alterar.
 
 ```javascript
 require('json.decycled');
