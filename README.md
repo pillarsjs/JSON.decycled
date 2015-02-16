@@ -1,12 +1,18 @@
 # JSON.decycled
-Añade a JSON.prototype de JS el método decycle. 
-Este método actúa en estructuras JSON con redundancia cíclica, eliminando esta redundancia e igualando la propiedad con redundancia cíclica a [Circular: *nodo de referencia*]. [npm](https://www.npmjs.com/package/json.decycled).
+Actúa en **estructuras JSON con redundancia cíclica**, eliminando esta redundancia e igualando la propiedad con redundancia cíclica a [Circular: *nodo de referencia*]. Además realiza el decycled sin pérdidas ya que mantiene los errores, expresiones regulares y fechas contenidos en el JSON original.  [npm](https://www.npmjs.com/package/json.decycled).
 
-Además si la estrucutra JSON tiene datos tipo: 
-+ **Error**: 'Error': new Error('Opss'),
-+ **Expresiones regulares**: 'Regexp': /x+/,
-+ **Fechas**: 'Date': new Date(),
-Los mantiene, y posteriormente mediante JSON.revive tendremos la estrucutra JSON, únicamente con las referencias cíclicas y los demás datos sin alterar.
+Añade a JSON.prototype de JS los siguientes métodos:
+
+## JSON.decycled (*val* [, *functions*] [, *deep*])
+Devuelve un string del JSON aceptado como parámetro *val*, con la redundancia cíclica eliminada y sin pérdidas.
++ val: JSON a realizar el decycled.
++ functions: *true* o *false*, para eliminar las funciones del JSON o mantenerlas.
++ deep: profundidad del JSON que devuelve, por defecto es 10.
+
+
+## JSON.revive (*val*)
+"Revive" la estructura devuelta por decycled en un JSON. 
+
 
 ```javascript
 require('json.decycled');
