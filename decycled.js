@@ -11,7 +11,7 @@ function decycler(val,functions,deep){
   return decycleWalker([],[],val,functions,deep);
 }
 function decycled(val,functions,deep){
-  val = decycler(val,deep);
+  val = decycler(val,functions,deep);
   return JSON.stringify(val);
 }
 
@@ -67,7 +67,7 @@ function decycleWalker(parents,path,val,functions,deep){
         } else {
           copy = {};
           for(i=0,k=Object.keys(val),l=k.length;i<l;i++){
-            copy[k[i]]=decycleWalker(parents.concat([val]),path.concat([k[i]]),val[k[i]],deep);
+            copy[k[i]]=decycleWalker(parents.concat([val]),path.concat([k[i]]),val[k[i]],functions,deep);
           }
           return copy;
         }
@@ -79,37 +79,3 @@ function decycleWalker(parents,path,val,functions,deep){
     return val.toString();
   }
 }
-
-/* --------------------------------- *
-var obj = {
-  a: {
-    a1:{
-      'String': "String",
-      'undefined': undefined,
-      'Number': 14,
-      'null': null,
-      'Boolean': true,
-      'Date': new Date(),
-      'Regexp': /x+/,
-      'Error': new Error('Opss'),
-      'Array': [1,2,3,4,5],
-      'function': function Hello(){}
-    },
-    a2:{
-      'List': [
-        {x:'X1',y:'Y1',z:'Z1'},
-        {x:'X2',y:'Y2',z:'Z2'},
-        {x:'X3',y:'Y3',z:'Z3'}
-      ]
-    }
-  },
-  b: {},
-  c: {}
-};
-obj.b.a = obj;
-obj.a.a1['Recursion'] = obj.a.a1;
-console.log(obj);
-console.log(JSON.decycled(obj));
-console.log(JSON.revive(JSON.decycled(obj)));
-
-/* --------------------------------- */
