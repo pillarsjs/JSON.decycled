@@ -1,17 +1,49 @@
 {
   "name": "json.decycled",
-  "description": "Decycled versión for JSON.stringify, resolve circulars and more. Reverse by JSON.revive().",
+  "description": "Decycled versión for JSON.stringify, resolve circulars, Regexp, Errors and dates. Reverse by JSON.revive().",
   "version": "0.1.0",
   "author": {
     "name": "Bifuer",
     "email": "bifuer@gmail.com"
   },
+  "contributors": [
+    {
+      "name": "Chelo Quilón Gomez",
+      "email": "cheloq@gmail.com"
+    }
+  ],
+  "homepage": "https://github.com/bifuer/JSON.decycled",
   "repository": {
     "type": "git",
-    "url": "git://github.com/bifuer/json.decycled"
+    "url": "git://github.com/bifuer/JSON.decycled"
   },
-  "main": "./decycled.js",
-  "scripts": {},
+  "bugs": {
+    "url": "https://github.com/bifuer/JSON.decycled/issues",
+    "email" : "cheloq@gmail.com"
+  },
+  "keywords": [
+    "json",
+    "stringify",
+    "circular",
+    "parse",
+    "decycled",
+    "decycler"
+  ],
   "dependencies": {},
-  "readmeFilename": "readme.md"
+  "devDependencies": {
+    "mocha": "*",
+    "unit.js": "*"
+  },
+ "main": "./index.js",
+ "scripts":{
+    "test": "mocha test/"
+  },
+  "preferGlobal": false,
+  "files": [
+    "LICENSE",
+    "README.md",
+    "index.js"
+  ],
+  "readmeFilename": "README.md",
+  "license": "MIT"
 }

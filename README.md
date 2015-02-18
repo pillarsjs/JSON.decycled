@@ -1,24 +1,31 @@
 # JSON.decycled
-Actúa en **estructuras JSON con redundancia cíclica**, eliminando esta redundancia e igualando la propiedad con redundancia cíclica a [Circular: *nodo de referencia*]. Además realiza el decycled sin pérdidas ya que mantiene los errores, expresiones regulares y fechas contenidos en el JSON original.  [npm](https://www.npmjs.com/package/json.decycled).
-
-Añade a JSON.prototype de JS los siguientes métodos:
-
-## JSON.decycled (*val* [, *functions*] [, *deep*])
-Devuelve un string del JSON aceptado como parámetro *val*, con la redundancia cíclica eliminada y sin pérdidas.
-+ val: JSON a realizar el decycled.
-+ functions: *true* o *false*, para eliminar las funciones del JSON o mantenerlas.
-+ deep: profundidad del JSON que devuelve, por defecto es 10.
+![license](https://img.shields.io/badge/license-MIT-blue.svg ) [![Build Status](https://img.shields.io/travis/bifuer/JSON.decycled/master.svg)](https://travis-ci.org/bifuer/JSON.decycled) [![npm version](https://img.shields.io/npm/v/json.decycled.svg)](https://www.npmjs.com/package/json.decycled) [![Github release](https://img.shields.io/github/release/bifuer/JSON.decycled.svg)](https://github.com/bifuer/JSON.decycled) [![npm downloads](https://img.shields.io/npm/dm/json.decycled.svg)](https://www.npmjs.com/package/json.decycled)
 
 
-## JSON.revive (*val*)
-"Revive" la estructura devuelta por decycled en un JSON. 
+
+Añade a JSON nativo de JS el método `.decycled()` y el método `.revive()`. Son una versión de JSON.stringify() y JSON.parse() respectivamente, pero **compatible con objetos con referencias circulares**, **expresiones regulares**, **objetos de error**, **objetos date** y **funciones**. 
+
++ En los nodos donde exista redundancia cíclica aparecerá el valor **[Circular: *reference*]**, donde *reference* es el punto donde comienza la referencia circular indicado en notación por puntos.
+
+
+```javascript
+JSON.decycled (val [, functions] [, deep])
+```
+Devuelve un JSON del objeto JS *val*.
++ **val** *(object)* a realizar el decycled.
++ **functions** *(boolean)*: *true* para mostrar las propiedades que hacen referencia a funciones. Por defecto es false. Estas propiedades tendrán el formato **[Function:*nombre function*]** y no son atendidas por la función `.revive()`.
++ **deep** *(integer)*: profundidad del objeto a analizar.
+
+
+```javascript
+JSON.revive (*val*)
+```
+Convierte la estructura JSON en un Objeto JS. Si la estructura JSON viene dada por la función `.decycled()` se recreará los objetos Date, RegExp y Error.
++ **val** *(object)* JSON a "revivir" en un objeto JS.
 
 
 ```javascript
 require('json.decycled');
-```
-
-```javascript
 
 var obj = {
   a: {
@@ -53,10 +60,8 @@ console.log(JSON.revive(JSON.decycled(obj)));
 
 ```
 
-
-##Example
-+ [jsfiddle.net](http://jsfiddle.net/lilxelo/pvbnpL7e/)
++ [Código del ejemplo en jsfiddle.net](http://jsfiddle.net/lilxelo/pvbnpL7e/)
 
 
-##Licence
+##Licencia
 MIT
