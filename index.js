@@ -10,9 +10,9 @@ function decycler(val,functions,deep){
   deep = deep || 10;
   return decycleWalker([],[],val,functions,deep);
 }
-function decycled(val,functions,deep){
+function decycled(val,functions,deep,spacer){
   val = decycler(val,functions,deep);
-  return JSON.stringify(val);
+  return JSON.stringify(val,undefined,spacer);
 }
 
 var reviverTimeStamp = /^\[TimeStamp:([0-9]+)\]$/;
