@@ -57,7 +57,7 @@ function decycleWalker(parents,path,val,functions,deep){
         } else {
           copy = [];
           for(i=0,l=val.length;i<l;i++){
-            copy[i]=decycleWalker(parents.concat([val]),path.concat(i),val[i],deep);
+            copy[i]=decycleWalker(parents.concat([val]),path.concat(i),val[i],functions,deep);
           }
           return copy;
         }
