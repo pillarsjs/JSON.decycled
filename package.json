@@ -1,7 +1,7 @@
 {
   "name": "json.decycled",
   "description": "Decycled versión for JSON.stringify, resolve circulars, Regexp, Errors and dates. Reverse by JSON.revive().",
-  "version": "1.1.1",
+  "version": "1.2.0",
   "author": {
     "name": "Bifuer",
     "email": "bifuer@gmail.com"
@@ -27,15 +27,18 @@
     "circular",
     "parse",
     "decycled",
-    "decycler"
+    "decycler",
+    "js",
+    "javascript",
+    "node"
   ],
   "dependencies": {},
   "devDependencies": {
     "mocha": "*",
     "unit.js": "*"
   },
- "main": "./index.js",
- "scripts":{
+  "main": "./index.js",
+  "scripts":{
     "test": "mocha test/"
   },
   "preferGlobal": false,
