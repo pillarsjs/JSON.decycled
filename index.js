@@ -1,6 +1,13 @@
 /* jslint node: true */
 "use strict";
 
+global.modulesCache = global.modulesCache || {};
+if(global.modulesCache['json.decycled']){
+  return;
+} else {
+  global.modulesCache['json.decycled'] = true;
+}
+
 JSON.decycler = decycler;
 JSON.decycled = decycled;
 JSON.reviver = reviver;
