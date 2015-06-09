@@ -1,7 +1,7 @@
 {
   "name": "json.decycled",
   "description": "Decycled versión for JSON.stringify, resolve circulars, Regexp, Errors and dates. Reverse by JSON.revive().",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "author": {
     "name": "Bifuer",
     "email": "bifuer@gmail.com"
