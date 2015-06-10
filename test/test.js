@@ -123,7 +123,7 @@ describe("Decycled Library -",function(){
           functionHello: function Hello(){}
         }
       };
-      obj = JSON.revive(JSON.decycled(obj,true),true);
+      obj = JSON.revive(JSON.decycled(obj,{functions:true}));
       test
         .value(obj.a.functionHello)
           .isType("string")
