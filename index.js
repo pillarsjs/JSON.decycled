@@ -63,7 +63,7 @@ function decycleWalker(parents,path,val,config){
     } else {
       var copy,i,k,l;
       if(typeof val.constructor.name === 'string' && val.constructor.name.slice(-5)==='Array'){
-        if(parents.length>config.deep){
+        if(parents.length>=config.deep){
           return '[Array:'+val.constructor.name+']';
         } else {
           copy = [];
@@ -73,7 +73,7 @@ function decycleWalker(parents,path,val,config){
           return copy;
         }
       } else {
-        if(parents.length>config.deep){
+        if(parents.length>=config.deep){
           return '[Object:'+(val.constructor.name?val.constructor.name:'Object')+']';
         } else {
           copy = {};
