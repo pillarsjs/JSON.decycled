@@ -14,12 +14,12 @@ JSON.reviver = reviver;
 JSON.revive = revive;
 
 function decycler(val,deep){
-  var config = typeof deep === 'number'?{deep:deep}:deep || {};
+  var config = typeof deep === 'number'?{deep:deep}:(deep || {});
   config.deep = config.deep || 10;
   return decycleWalker([],[],val,config);
 }
 function decycled(val,deep,spacer){
-  var config = typeof deep === 'number'?{deep:deep}:deep || {};
+  var config = typeof deep === 'number'?{deep:deep}:(deep || {});
   spacer = spacer || config.spacer;
   val = decycler(val,config);
   return JSON.stringify(val,undefined,spacer);
