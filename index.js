@@ -1,6 +1,7 @@
 /* jslint node: true */
 "use strict";
 
+require("date.format");
 global.modulesCache = global.modulesCache || {};
 if(global.modulesCache['json.decycled']){
   return;
@@ -33,7 +34,7 @@ function revive(val,functions){
   function reviver(key,val){
     if(reviverDate.test(val)){
       val = reviverDate.exec(val);
-      val = Date.UTC(val[2],val[3],val[4],val[5],val[6],val[7],val[8]);
+      val = Date.UTC(val[2],parseInt(val[3],10)-1,val[4],val[5],val[6],val[7],val[8]);
       return new Date(val);
     } else if(reviverRegExp.test(val)){
       val = reviverRegExp.exec(val)[1];

@@ -89,8 +89,8 @@ describe("Decycled Library -",function(){
           date2: date
         }
       };
-
-      obj = JSON.revive(JSON.decycled(obj));
+      dobj = JSON.decycled(obj);
+      obj = JSON.revive(dobj);
      
       test
         .value(obj.a.date1)
