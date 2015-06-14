@@ -110,10 +110,9 @@ describe("Decycled Library -",function(){
       };
       
       obj = JSON.revive(JSON.decycled(obj));
-     
       test
-        .value(obj.a.error)
-          .isType("object")
+        .value(obj.a.error.constructor)
+          .is(Error)
      })
 
     it("Function",function(){   
@@ -128,7 +127,7 @@ describe("Decycled Library -",function(){
         .value(obj.a.functionHello)
           .isType("string")
         .value(obj.a.functionHello)
-          .is("[Function:Hello]")
+          .is("[Function:function Hello(){}]")
      })
 
     it("Array",function(){   

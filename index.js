@@ -27,7 +27,7 @@ function decycled(val,deep,spacer){
 
 var reviverDate = /^\[Date:((\d{4})\/(\d{2})\/(\d{2}) (\d{2})\:(\d{2})\:(\d{2})\:(\d{4})) UTC\]$/;
 var reviverRegExp = /^\[Regexp:\/(.+)\/\]$/;
-var reviverError = /^\[Error:(.+)\]$/;
+var reviverError = /^\[Error:([\W\w]+)\]$/;
 var reviverFunction = /^\[Function:(.+)\]$/;
 function revive(val,functions){
   return JSON.parse(val,reviver);
@@ -41,7 +41,11 @@ function revive(val,functions){
       return new RegExp(val);
     } else if(reviverError.test(val)){
       val = reviverError.exec(val)[1];
-      return new Error(val);
+      var error = new Error(val.split('\n')[0]);
+      if(error.stack){
+        error.stack = val;
+      }
+      return error;
     } else if(functions && reviverFunction.test(val)){
       val = reviverFunction.exec(val)[1];
       try {
@@ -64,7 +68,10 @@ function decycleWalker(parents,path,val,config){
   } else if(typeof val === 'object' && val.constructor === RegExp){
     return config.regexps!==false?'[Regexp:'+val.toString()+']':val;
   } else if(typeof val === 'object' && typeof val.constructor.name === 'string' && val.constructor.name.slice(-5)==='Error'){
-    return config.errors!==false?'[Error:'+(val.stack?val.stack.trim():val?val.toString().trim():val)+']':val;
+    var stack = (val.stack || '').split('\n').slice(1);
+    var message = (val.message || val.toString());
+    var error = message+"\n"+stack;
+    return config.errors!==false?'[Error:'+error+']':val;
   } else if(typeof val === 'object'){
     if(parents.indexOf(val) >= 0){
       var point = path.slice(0,parents.indexOf(val)).join('.');
