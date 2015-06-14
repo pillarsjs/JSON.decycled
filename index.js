@@ -10,7 +10,6 @@ if(global.modulesCache['json.decycled']){
 
 JSON.decycler = decycler;
 JSON.decycled = decycled;
-JSON.reviver = reviver;
 JSON.revive = revive;
 
 function decycler(val,deep){
@@ -25,32 +24,41 @@ function decycled(val,deep,spacer){
   return JSON.stringify(val,undefined,spacer);
 }
 
-var reviverTimeStamp = /^\[TimeStamp:([0-9]+)\]$/;
+var reviverDate = /^\[Date:((\d{4})\/(\d{2})\/(\d{2}) (\d{2})\:(\d{2})\:(\d{2})\:(\d{4})) UTC\]$/;
 var reviverRegExp = /^\[Regexp:\/(.+)\/\]$/;
-var reviverError = /^\[Error:([\w\W]+)\]$/;
-function reviver(key,val){
-  if(reviverTimeStamp.test(val)){
-    val = parseInt(reviverTimeStamp.exec(val)[1],10);
-    return new Date(val);
-  } else if(reviverRegExp.test(val)){
-    val = reviverRegExp.exec(val)[1];
-    return new RegExp(val);
-  } else if(reviverError.test(val)){
-    val = reviverError.exec(val)[1];
-    return new Error(val);
-  } else {
-    return val;
+var reviverError = /^\[Error:(.+)\]$/;
+var reviverFunction = /^\[Function:(.+)\]$/;
+function revive(val,functions){
+  return JSON.parse(val,reviver);
+  function reviver(key,val){
+    if(reviverDate.test(val)){
+      val = reviverDate.exec(val);
+      val = Date.UTC(val[2],val[3],val[4],val[5],val[6],val[7],val[8]);
+      return new Date(val);
+    } else if(reviverRegExp.test(val)){
+      val = reviverRegExp.exec(val)[1];
+      return new RegExp(val);
+    } else if(reviverError.test(val)){
+      val = reviverError.exec(val)[1];
+      return new Error(val);
+    } else if(functions && reviverFunction.test(val)){
+      val = reviverFunction.exec(val)[1];
+      try {
+        return (new Function("return "+val+";"))();
+      } catch(error){
+        return error;
+      }
+    } else {
+      return val;
+    }
   }
-}
-function revive(val){
-    return JSON.parse(val,reviver);
 }
 
 function decycleWalker(parents,path,val,config){
   if(['undefined','number','boolean','string'].indexOf(typeof val)>=0 || val === null){
     return val;
   } else if(typeof val === 'object' && val.constructor === Date){
-    return config.dates!==false?'[TimeStamp:'+val.getTime()+']':val.format('{YYYY}/{MM}/{DD} {hh}:{mm}:{ss}',true);
+    return config.dates!==false?'[Date:'+val.format('{YYYY}/{MM}/{DD} {hh}:{mm}:{ss}:{mss} UTC',true)+']':val;
     //val.format('{YYYY}/{MM}/{DD} {hh}:{mm}:{ss} UTC:·{params.tz>=0?"+"+params.tz:params.tz}·');
   } else if(typeof val === 'object' && val.constructor === RegExp){
     return config.regexps!==false?'[Regexp:'+val.toString()+']':val;
@@ -85,7 +93,7 @@ function decycleWalker(parents,path,val,config){
       }
     }
   } else if(typeof val === 'function') {
-    return config.functions===true?'[Function:'+(val.name?val.name:'<anonymous>')+']':undefined;
+    return config.functions===true?'[Function:'+val.toString()+']':undefined;
   } else {
     return val.toString();
   }
