@@ -1,5 +1,5 @@
 # JSON.decycled
-![license](https://img.shields.io/badge/license-MIT-blue.svg ) [![Build Status](https://img.shields.io/travis/bifuer/JSON.decycled/master.svg)](https://travis-ci.org/bifuer/JSON.decycled) [![npm version](https://img.shields.io/npm/v/json.decycled.svg)](https://www.npmjs.com/package/json.decycled) [![Github release](https://img.shields.io/github/release/bifuer/JSON.decycled.svg)](https://github.com/bifuer/JSON.decycled) [![npm downloads](https://img.shields.io/npm/dm/json.decycled.svg)](https://www.npmjs.com/package/json.decycled)
+![license](https://img.shields.io/badge/license-MIT-blue.svg ) [![Build Status](https://img.shields.io/travis/pillarsjs/JSON.decycled/master.svg)](https://travis-ci.org/pillarsjs/JSON.decycled) [![npm version](https://img.shields.io/npm/v/json.decycled.svg)](https://www.npmjs.com/package/json.decycled) [![Github release](https://img.shields.io/github/release/bifuer/JSON.decycled.svg)](https://github.com/pillarsjs/JSON.decycled) [![npm downloads](https://img.shields.io/npm/dm/json.decycled.svg)](https://www.npmjs.com/package/json.decycled)
 
 Languages:[[EN](#),[ES](#jsondecycled-es)]
 

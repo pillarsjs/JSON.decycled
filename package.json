@@ -12,13 +12,13 @@
       "email": "cheloq@gmail.com"
     }
   ],
-  "homepage": "https://github.com/bifuer/JSON.decycled",
+  "homepage": "https://github.com/pillarsjs/JSON.decycled",
   "repository": {
     "type": "git",
-    "url": "git://github.com/bifuer/JSON.decycled"
+    "url": "git://github.com/pillarsjs/JSON.decycled"
   },
   "bugs": {
-    "url": "https://github.com/bifuer/JSON.decycled/issues",
+    "url": "https://github.com/pillarsjs/JSON.decycled/issues",
     "email" : "cheloq@gmail.com"
   },
   "keywords": [
