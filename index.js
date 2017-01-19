@@ -13,16 +13,19 @@ JSON.decycler = decycler;
 JSON.decycled = decycled;
 JSON.revive = revive;
 
-function decycler(val,deep){
-  var config = typeof deep === 'number'?{deep:deep}:(deep || {});
+function decycler(val,config){
+  config = typeof config === 'number'?{deep:config}:(config || {});
   config.deep = config.deep || 10;
   return decycleWalker([],[],val,config);
 }
-function decycled(val,deep,spacer){
-  var config = typeof deep === 'number'?{deep:deep}:(deep || {});
-  spacer = spacer || config.spacer;
+function decycled(val,config){
+  config = typeof config === 'number'?{deep:config}:(config || {});
   val = decycler(val,config);
-  return JSON.stringify(val,undefined,spacer);
+  try {
+    return JSON.stringify(val,undefined,config.spacer);
+  } catch(e){
+    return e;
+  }
 }
 
 var reviverDate = /^\[Date:((\d{4})\/(\d{2})\/(\d{2}) (\d{2})\:(\d{2})\:(\d{2})\:(\d{4})) UTC\]$/;
@@ -30,7 +33,12 @@ var reviverRegExp = /^\[Regexp:\/(.+)\/\]$/;
 var reviverError = /^\[Error:([\W\w]+)\]$/;
 var reviverFunction = /^\[Function:(.+)\]$/;
 function revive(val,functions){
-  return JSON.parse(val,reviver);
+  try {
+    return JSON.parse(val,reviver);
+  } catch(e){
+    return e;
+  }
+  
   function reviver(key,val){
     if(reviverDate.test(val)){
       val = reviverDate.exec(val);
