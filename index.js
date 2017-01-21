@@ -75,7 +75,7 @@ function decycleWalker(parents,path,val,config){
     //val.format('{YYYY}/{MM}/{DD} {hh}:{mm}:{ss} UTC:·{params.tz>=0?"+"+params.tz:params.tz}·');
   } else if(typeof val === 'object' && val.constructor === RegExp){
     return config.regexps!==false?'[Regexp:'+val.toString()+']':val;
-  } else if(typeof val === 'object' && typeof val.constructor.name === 'string' && val.constructor.name.slice(-5)==='Error'){
+  } else if(typeof val === 'object' && val.constructor && typeof val.constructor.name === 'string' && val.constructor.name.slice(-5)==='Error'){
     var stack = (val.stack || '').split('\n').slice(1);
     var message = (val.message || val.toString());
     var error = message+"\n"+stack;
@@ -86,7 +86,7 @@ function decycleWalker(parents,path,val,config){
       return '[Circular'+(point?':'+point:'')+']';
     } else {
       var copy,i,k,l;
-      if(typeof val.constructor.name === 'string' && val.constructor.name.slice(-5)==='Array'){
+      if(val.constructor && typeof val.constructor.name === 'string' && val.constructor.name.slice(-5)==='Array'){
         if(parents.length>=config.deep){
           return '[Array:'+val.constructor.name+']';
         } else {
@@ -98,7 +98,7 @@ function decycleWalker(parents,path,val,config){
         }
       } else {
         if(parents.length>=config.deep){
-          return '[Object:'+(val.constructor.name?val.constructor.name:'Object')+']';
+          return '[Object:'+(val.constructor && val.constructor.name?val.constructor.name:'Object')+']';
         } else {
           copy = {};
           for(i=0,k=Object.keys(val),l=k.length;i<l;i++){
